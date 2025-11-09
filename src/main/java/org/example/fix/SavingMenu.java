@@ -18,7 +18,7 @@ public class SavingMenu implements AccountTypeMenu {
 
     @Override
     public void show(MenuContext context, Runnable back) {
-        Scanner input = context.input;
+        Scanner input = context.getInput();
 
         Map<Integer, Runnable> actions = registerActions(context, back);
 
@@ -40,9 +40,9 @@ public class SavingMenu implements AccountTypeMenu {
 
     @Override
     public Map<Integer, Runnable> registerActions(MenuContext context, Runnable back) {
-        Scanner input = context.input;
-        DecimalFormat format = context.format;
-        Account savingAccount = context.account;
+        Scanner input = context.getInput();
+        DecimalFormat format = context.getDecimalFormat();
+        Account savingAccount = context.getAccount();
 
         Map<Integer, Runnable> actions = new HashMap<>();
 
