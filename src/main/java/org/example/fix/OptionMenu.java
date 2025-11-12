@@ -9,20 +9,20 @@ import java.util.function.Supplier;
 public class OptionMenu {
     private final Account account;
 
-    private final Map<Integer, Supplier<AccountTypeMenu>> accountMenuRegister = Map.of(
-            1, CheckingMenu::new,
-            2, SavingMenu::new
-    );
-
-    public OptionMenu(Account account) {
-        this.account = account;
-    }
-
+    private final Map<Integer, Supplier<BaseMenu>> accountMenuRegister = new HashMap<>();
 
     Scanner menuInput = new Scanner(System.in); // Scanner object for reading user input
     DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00"); // Currency formatter
 
     HashMap<Integer, Integer> data = new HashMap<>(); // Stores customer number as key, PIN as value
+
+    public OptionMenu(Account account) {
+        this.account = account;
+
+        accountMenuRegister.put(1, () -> new CheckingMenu(menuInput, moneyFormat, account));
+        accountMenuRegister.put(2, () -> new SavingMenu(menuInput, moneyFormat, account));
+    }
+
 
     // Handles login process
     public void getLogin() {
@@ -61,8 +61,6 @@ public class OptionMenu {
 
     // Displays account type options
     public void getAccountType() {
-        MenuContext context = new MenuContext(menuInput, moneyFormat, account);
-
         while (true) {
             System.out.println("\nSelect Account Type you want to Access");
             System.out.println("Type 1 - Checking Account");
@@ -77,16 +75,23 @@ public class OptionMenu {
                 System.exit(0);
             }
 
-            Supplier<AccountTypeMenu> mockFactory = accountMenuRegister.get(selection);
+            Supplier<BaseMenu> chosenMenu = accountMenuRegister.get(selection);
 
-            if (mockFactory == null) {
+            if (chosenMenu == null) {
                 System.out.println("\nInvalid Choice\n");
                 continue;
             }
 
-            AccountTypeMenu typeMenu = mockFactory.get();
-            typeMenu.show(context, this::getAccountType);
+            BaseMenu typeMenu = chosenMenu.get();
+            typeMenu.show(this::getAccountType);
         }
+    }
+
+    public void registerMenu(int id, Supplier<BaseMenu> menu) {
+        if (accountMenuRegister.containsKey(id)) {
+            throw new IllegalArgumentException("Menu id " + id + " is already registered!");
+        }
+        accountMenuRegister.put(id, menu);
     }
 }
 
