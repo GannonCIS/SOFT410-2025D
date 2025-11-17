@@ -5,7 +5,7 @@ package org.example;
  */
 public class ATM extends OptionMenu {
     // Main method: entry point of the program
-    public static void main(String[] args) {
+    public static <String> void main(String[] args) {
         OptionMenu options = new OptionMenu(); // Creates an object of OptionMenu class
         options.getLogin(); // Calls the getLogin method to prompt user login
     }
