@@ -1,4 +1,6 @@
-package org.example.fix;
+package org.example.View;
+
+import org.example.Model.Account;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -35,8 +37,8 @@ public abstract class BaseMenu {
     protected Map<Integer, Runnable> registerActions(Runnable back) {
         Map<Integer, Runnable> actions = new HashMap<>();
         actions.put(1, () -> { onViewBalance(); back.run(); });
-        actions.put(2, () -> { onWithdraw();   back.run(); });
-        actions.put(3, () -> { onDeposit();    back.run(); });
+        actions.put(2, () -> { onWithdraw(); back.run(); });
+        actions.put(3, () -> { onDeposit(); back.run(); });
         actions.put(4, back);
         return actions;
     }

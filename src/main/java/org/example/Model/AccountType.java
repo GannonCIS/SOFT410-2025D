@@ -1,4 +1,4 @@
-package org.example.fix;
+package org.example.Model;
 
 public enum AccountType {
     CHECKING,

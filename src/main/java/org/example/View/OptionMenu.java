@@ -1,4 +1,7 @@
-package org.example.fix;
+package org.example.View;
+
+import org.example.Controller.AccountController;
+import org.example.Model.Account;
 
 import java.text.DecimalFormat; // Import for formatting balance outputs as currency
 import java.util.HashMap; // Import for storing customer number and PIN pairs
@@ -8,6 +11,7 @@ import java.util.function.Supplier;
 
 public class OptionMenu {
     private final Account account;
+    private final AccountController accountController;
 
     private final Map<Integer, Supplier<BaseMenu>> accountMenuRegister = new HashMap<>();
 
@@ -16,10 +20,11 @@ public class OptionMenu {
 
     HashMap<Integer, Integer> data = new HashMap<>(); // Stores customer number as key, PIN as value
 
-    public OptionMenu(Account account) {
+    public OptionMenu(Account account, AccountController accountController) {
         this.account = account;
+        this.accountController = accountController;
 
-        accountMenuRegister.put(1, () -> new CheckingMenu(menuInput, moneyFormat, account));
+        accountMenuRegister.put(1, () -> new CheckingMenu(menuInput, moneyFormat, account, accountController));
         accountMenuRegister.put(2, () -> new SavingMenu(menuInput, moneyFormat, account));
     }
 

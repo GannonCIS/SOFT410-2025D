@@ -1,4 +1,6 @@
-package org.example.fix;
+package org.example.View;
+
+import org.example.Model.Account;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
