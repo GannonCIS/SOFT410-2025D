@@ -9,7 +9,6 @@ public final class Money {
     private final BigDecimal value;
 
     private Money(BigDecimal value) {
-        // default rounding mode (HALF_UP) is safe and available everywhere
         this.value = value.setScale(SCALE, BigDecimal.ROUND_HALF_UP);
     }
 
@@ -39,6 +38,10 @@ public final class Money {
 
     public int compareTo(Money other) {
         return this.value.compareTo(other.value);
+    }
+
+    public BigDecimal asBigDecimal() {
+        return value;
     }
 
     @Override

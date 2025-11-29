@@ -1,35 +1,47 @@
 package org.example.View;
 
-import org.example.Controller.AccountController;
-import org.example.Model.*;
+import org.example.Model.Account;
+import org.example.Model.AccountObserver;
+import org.example.Model.AccountType;
+import org.example.Model.Money;
 
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
-public class CheckingMenu extends BaseMenu {
-    private final AccountController accountController;
-    private AccountType accountType = AccountType.CHECKING;
+public class CheckingMenu extends BaseMenu implements AccountObserver {
 
-    public CheckingMenu(Scanner input, DecimalFormat format, Account account, AccountController accountController) {
-        super(input, format, account);
-        this.accountController = accountController;
+    private final Account account;
+    private final AccountType type = AccountType.CHECKING;
+
+    public CheckingMenu(Scanner input, Account account) {
+        super(input);
+        this.account = account;
+        this.account.addObserver(this);
     }
 
-    @Override protected String title() { return "Checking Account"; }
-
-    @Override protected void onViewBalance() {
-        // System.out.println("Checking Balance: " + format.format(account.getCheckingBalance()));
-        Money balance = accountController.getBalance(account, accountType);
-        System.out.println("Checking Balance: " + format.format(balance.toString()));
+    @Override
+    public String title() {
+        return "Checking Account";
     }
 
-    @Override protected void onWithdraw() {
-        double amt = promptAmount("Enter amount to withdraw: ");
-        accountController.withdraw(account, accountType, Money.of(amt));
+    @Override
+    public void showBalance(String balanceString) {
+        System.out.println("Checking Balance: " + balanceString);
     }
 
-    @Override protected void onDeposit() {
-        double amt = promptAmount("Enter amount to deposit: ");
-        accountController.deposit(account, AccountType.CHECKING, Money.of(amt));
+    @Override
+    public double promptWithdraw() {
+        return promptAmount("Enter amount to withdraw from Checking: ");
+    }
+
+    @Override
+    public double promptDeposit() {
+        return promptAmount("Enter amount to deposit to Checking: ");
+    }
+
+    @Override
+    public void onBalanceChanged(Account account, AccountType type, Money newBalance) {
+        if (account == this.account && type == this.type) {
+            System.out.println("\nBalance updated: " + newBalance);
+        }
     }
 }

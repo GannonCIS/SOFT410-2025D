@@ -1,26 +1,16 @@
 package org.example.View;
 
-import org.example.Model.Account;
-
-import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public abstract class BaseMenu {
     protected final Scanner input;
-    protected final DecimalFormat format;
-    protected final Account account;
 
-    protected BaseMenu(Scanner input, DecimalFormat format, Account account) {
+    protected BaseMenu(Scanner input) {
         this.input = input;
-        this.format = format;
-        this.account = account;
     }
 
-    public final void show(Runnable back) {
-        Map<Integer, Runnable> actions = registerActions(back);
-
+    public final void show(Map<Integer, Runnable> actions) {
         while (true) {
             printBaseOptions(title());
             int selection = readInt();
@@ -32,15 +22,6 @@ public abstract class BaseMenu {
                 System.out.println("\nInvalid Choice. Please try again!\n");
             }
         }
-    }
-
-    protected Map<Integer, Runnable> registerActions(Runnable back) {
-        Map<Integer, Runnable> actions = new HashMap<>();
-        actions.put(1, () -> { onViewBalance(); back.run(); });
-        actions.put(2, () -> { onWithdraw(); back.run(); });
-        actions.put(3, () -> { onDeposit(); back.run(); });
-        actions.put(4, back);
-        return actions;
     }
 
     protected void printBaseOptions(String title) {
@@ -71,8 +52,8 @@ public abstract class BaseMenu {
         return input.nextDouble();
     }
 
-    protected abstract String title();
-    protected abstract void onViewBalance();
-    protected abstract void onWithdraw();
-    protected abstract void onDeposit();
+    public abstract String title();
+    public abstract void showBalance(String balanceString);
+    public abstract double promptWithdraw();
+    public abstract double promptDeposit();
 }

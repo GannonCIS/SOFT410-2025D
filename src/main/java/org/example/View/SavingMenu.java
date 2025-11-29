@@ -1,29 +1,47 @@
 package org.example.View;
 
 import org.example.Model.Account;
+import org.example.Model.AccountObserver;
+import org.example.Model.AccountType;
+import org.example.Model.Money;
 
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
-public class SavingMenu extends BaseMenu {
+public class SavingMenu extends BaseMenu implements AccountObserver {
 
-    public SavingMenu(Scanner input, DecimalFormat format, Account account) {
-        super(input, format, account);
+    private final Account account;
+    private final AccountType type = AccountType.SAVING;
+
+    public SavingMenu(Scanner input, Account account) {
+        super(input);
+        this.account = account;
+        this.account.addObserver(this);
     }
 
-    @Override protected String title() { return "Savings Account"; }
-
-    @Override protected void onViewBalance() {
-        System.out.println("Saving Balance: " + format.format(account.getSavingBalance()));
+    @Override
+    public String title() {
+        return "Savings Account";
     }
 
-    @Override protected void onWithdraw() {
-        double amount = promptAmount("Enter amount to withdraw: ");
-        account.getSavingWithdrawInput(amount);
+    @Override
+    public void showBalance(String balanceString) {
+        System.out.println("Saving Balance: " + balanceString);
     }
 
-    @Override protected void onDeposit() {
-        double amount = promptAmount("Enter amount to deposit: ");
-        account.getSavingDepositInput(amount);
+    @Override
+    public double promptWithdraw() {
+        return promptAmount("Enter amount to withdraw from Saving: ");
+    }
+
+    @Override
+    public double promptDeposit() {
+        return promptAmount("Enter amount to deposit to Saving: ");
+    }
+
+    @Override
+    public void onBalanceChanged(Account account, AccountType type, Money newBalance) {
+        if (account == this.account && type == this.type) {
+            System.out.println("\nBalance updated: " + newBalance);
+        }
     }
 }
