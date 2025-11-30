@@ -17,7 +17,6 @@ public abstract class BaseMenu {
             Runnable action = actions.get(selection);
             if (action != null) {
                 action.run();
-                break;
             } else {
                 System.out.println("\nInvalid Choice. Please try again!\n");
             }

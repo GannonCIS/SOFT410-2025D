@@ -64,7 +64,6 @@ public class MenuController {
         actions.put(1, () -> {
             Money balance = accountController.getBalance(account, type);
             menu.showBalance(balance.toString());
-            back.run();
         });
 
         // 2 - Withdraw
@@ -75,7 +74,6 @@ public class MenuController {
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
             }
-            back.run();
         });
 
         // 3 - Deposit
@@ -86,7 +84,6 @@ public class MenuController {
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
             }
-            back.run();
         });
 
         // 4 - Exit → back to account selection

@@ -20,7 +20,6 @@ public class ATMController {
     private final MenuController menuController;
 
     public ATMController(
-            Scanner input,
             Account account,
             OptionMenu optionMenu,
             Map<Integer, BaseMenu> menus
@@ -28,9 +27,6 @@ public class ATMController {
         this.account = account;
         this.optionMenu = optionMenu;
         this.menus = menus;
-
-        account.setBalance(AccountType.CHECKING, Money.of(1000));
-        account.setBalance(AccountType.SAVING, Money.of(500));
 
         AccountController accountController = new AccountController();
 

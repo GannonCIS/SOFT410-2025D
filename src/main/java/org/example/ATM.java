@@ -27,7 +27,7 @@ public class ATM {
         menus.put(2, savingMenuView);
 
 
-        ATMController controller = new ATMController(input, accountModel, optionMenuView, menus);
+        ATMController controller = new ATMController(accountModel, optionMenuView, menus);
         controller.start();
     }
 }

@@ -14,8 +14,8 @@ public class Account {
 
     public Account() {
         balances = new EnumMap<>(AccountType.class);
-        balances.put(AccountType.CHECKING, Money.of(0));
-        balances.put(AccountType.SAVING, Money.of(0));
+        balances.put(AccountType.CHECKING, Money.of(1000));
+        balances.put(AccountType.SAVING, Money.of(500));
     }
 
     public void setCustomerNumber(int customerNumber) {
