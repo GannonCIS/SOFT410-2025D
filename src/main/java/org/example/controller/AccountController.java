@@ -9,24 +9,10 @@ public class AccountController {
     }
 
     public void deposit(Account account, AccountType type, Money amount) {
-        if (amount.isNegative() || amount.compareTo(Money.of(0)) == 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
-
-        Money newBalance = account.getBalance(type).add(amount);
-        account.setBalance(type, newBalance);
+        account.deposit(type, amount);
     }
 
     public void withdraw(Account account, AccountType type, Money amount) {
-        if (amount.isNegative() || amount.compareTo(Money.of(0)) == 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
-
-        Money newBalance = account.getBalance(type).subtract(amount);
-        if (newBalance.isNegative()) {
-            throw new IllegalArgumentException("Insufficient funds");
-        }
-
-        account.setBalance(type, newBalance);
+        account.withdraw(type, amount);
     }
 }

@@ -7,7 +7,6 @@ import org.example.view.BaseMenu;
 import org.example.view.OptionMenu;
 
 import java.util.Map;
-import java.util.Scanner;
 
 public class ATMController {
 

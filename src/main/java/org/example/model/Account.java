@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Account {
 
-    private EnumMap<AccountType, Money> balances = new EnumMap<>(AccountType.class);;
+    private final EnumMap<AccountType, Money> balances = new EnumMap<>(AccountType.class);
     private final List<AccountObserver> observers = new ArrayList<>();
 
     private int customerNumber;
@@ -51,6 +51,7 @@ public class Account {
         }
     }
 
+
     public Money getBalance(AccountType type) {
         return balances.get(type);
     }
@@ -58,5 +59,27 @@ public class Account {
     public void setBalance(AccountType type, Money newAmount) {
         balances.put(type, newAmount);
         notifyBalanceChanged(type, newAmount);
+    }
+
+    public void deposit(AccountType type, Money amount) {
+        if (amount.isNegative() || amount.compareTo(Money.of(0)) == 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+
+        Money newBalance = getBalance(type).add(amount);
+        setBalance(type, newBalance);
+    }
+
+    public void withdraw(AccountType type, Money amount) {
+        if (amount.isNegative() || amount.compareTo(Money.of(0)) == 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+
+        Money newBalance = getBalance(type).subtract(amount);
+        if (newBalance.isNegative()) {
+            throw new IllegalArgumentException("Insufficient funds");
+        }
+
+        setBalance(type, newBalance);
     }
 }
