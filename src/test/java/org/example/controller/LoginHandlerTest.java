@@ -25,7 +25,6 @@ public class LoginHandlerTest {
         assertEquals(123, account.getCustomerNumber());
         assertEquals(123, account.getPin());
 
-        // Should only need one attempt on success
         verify(optionMenu, times(1)).promptCustomerNumber();
         verify(optionMenu, times(1)).promptPin();
         verify(optionMenu, times(1)).showLoginSuccess();

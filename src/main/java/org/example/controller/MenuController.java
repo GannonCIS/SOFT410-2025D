@@ -1,4 +1,3 @@
-// package: org.example.Controller
 package org.example.controller;
 
 import org.example.model.Account;
@@ -64,13 +63,11 @@ public class MenuController {
                                                          Runnable back) {
         Map<Integer, Runnable> actions = new HashMap<>();
 
-        // 1 - View balance
         actions.put(1, () -> {
             Money balance = accountController.getBalance(account, type);
             menu.showBalance(balance.toString());
         });
 
-        // 2 - Withdraw
         actions.put(2, () -> {
             double amount = menu.promptWithdraw();
             try {
@@ -80,7 +77,6 @@ public class MenuController {
             }
         });
 
-        // 3 - Deposit
         actions.put(3, () -> {
             double amount = menu.promptDeposit();
             try {
