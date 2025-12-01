@@ -1,4 +1,4 @@
-package org.example.Model;
+package org.example.model;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -6,16 +6,16 @@ import java.util.List;
 
 public class Account {
 
-    private EnumMap<AccountType, Money> balances;
+    private EnumMap<AccountType, Money> balances = new EnumMap<>(AccountType.class);;
     private final List<AccountObserver> observers = new ArrayList<>();
 
     private int customerNumber;
     private int pin;
 
     public Account() {
-        balances = new EnumMap<>(AccountType.class);
-        balances.put(AccountType.CHECKING, Money.of(0));
-        balances.put(AccountType.SAVING, Money.of(0));
+        for (AccountType type : AccountType.values()) {
+            balances.put(type, Money.of(0));
+        }
     }
 
     public void setCustomerNumber(int customerNumber) {

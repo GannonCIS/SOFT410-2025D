@@ -1,11 +1,11 @@
 // package: org.example.Controller
-package org.example.Controller;
+package org.example.controller;
 
-import org.example.Model.Account;
-import org.example.Model.AccountType;
-import org.example.Model.Money;
-import org.example.View.BaseMenu;
-import org.example.View.OptionMenu;
+import org.example.model.Account;
+import org.example.model.AccountType;
+import org.example.model.Money;
+import org.example.view.BaseMenu;
+import org.example.view.OptionMenu;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +48,10 @@ public class MenuController {
                     ? AccountType.CHECKING
                     : AccountType.SAVING;
 
+            BaseMenu curMenu = (selection == 1)
+                    ? this.accountMenuRegister.get(1)
+                    : this.accountMenuRegister.get(2);
+
             Map<Integer, Runnable> actions =
                     buildActionsForMenu(menu, type, this::runAccountTypeLoop);
 
@@ -55,16 +59,16 @@ public class MenuController {
         }
     }
 
-    private Map<Integer, Runnable> buildActionsForMenu(BaseMenu menu,
-                                                       AccountType type,
-                                                       Runnable back) {
+    protected Map<Integer, Runnable> buildActionsForMenu(BaseMenu menu,
+                                                         AccountType type,
+                                                         Runnable back) {
         Map<Integer, Runnable> actions = new HashMap<>();
 
         // 1 - View balance
         actions.put(1, () -> {
             Money balance = accountController.getBalance(account, type);
             menu.showBalance(balance.toString());
-            back.run();
+            // back.run();
         });
 
         // 2 - Withdraw
@@ -75,7 +79,6 @@ public class MenuController {
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
             }
-            back.run();
         });
 
         // 3 - Deposit
@@ -86,7 +89,6 @@ public class MenuController {
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
             }
-            back.run();
         });
 
         // 4 - Exit → back to account selection

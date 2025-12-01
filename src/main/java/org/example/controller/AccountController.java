@@ -1,6 +1,6 @@
-package org.example.Controller;
+package org.example.controller;
 
-import org.example.Model.*;
+import org.example.model.*;
 
 public class AccountController {
 

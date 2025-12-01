@@ -1,12 +1,11 @@
-package org.example.Controller;
+package org.example.controller;
 
-import org.example.Model.Account;
-import org.example.Model.AccountType;
-import org.example.Model.Money;
-import org.example.View.BaseMenu;
-import org.example.View.OptionMenu;
+import org.example.model.Account;
+import org.example.model.AccountType;
+import org.example.model.Money;
+import org.example.view.BaseMenu;
+import org.example.view.OptionMenu;
 
-import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Scanner;
 

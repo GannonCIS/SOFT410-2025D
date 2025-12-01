@@ -1,7 +1,7 @@
-package org.example.Controller;
+package org.example.controller;
 
-import org.example.Model.Account;
-import org.example.View.OptionMenu;
+import org.example.model.Account;
+import org.example.view.OptionMenu;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,11 @@
 package org.example;
 
-import org.example.Controller.ATMController;
-import org.example.Model.Account;
-import org.example.View.BaseMenu;
-import org.example.View.CheckingMenu;
-import org.example.View.OptionMenu;
-import org.example.View.SavingMenu;
+import org.example.controller.ATMController;
+import org.example.model.Account;
+import org.example.view.BaseMenu;
+import org.example.view.CheckingMenu;
+import org.example.view.OptionMenu;
+import org.example.view.SavingMenu;
 
 import java.util.HashMap;
 import java.util.Map;

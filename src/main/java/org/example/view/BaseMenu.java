@@ -1,4 +1,4 @@
-package org.example.View;
+package org.example.view;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -17,7 +17,6 @@ public abstract class BaseMenu {
             Runnable action = actions.get(selection);
             if (action != null) {
                 action.run();
-                break;
             } else {
                 System.out.println("\nInvalid Choice. Please try again!\n");
             }
@@ -29,7 +28,7 @@ public abstract class BaseMenu {
         System.out.println("Type 1 - View Balance");
         System.out.println("Type 2 - Withdraw Money");
         System.out.println("Type 3 - Deposit Funds");
-        System.out.println("Type 4 - Exit");
+        System.out.println("Type 4 - Exit to Main Menu");
         System.out.print("Choice: ");
     }
 
