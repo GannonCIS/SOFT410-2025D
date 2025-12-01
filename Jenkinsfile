@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'jdk17'     // or whatever JDK name you configured
-        gradle 'gradle8' // optional if Jenkins manages Gradle
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -29,8 +24,7 @@ pipeline {
             steps {
                 jacoco execPattern: 'build/jacoco/test.exec',
                        classPattern: 'build/classes/java/main',
-                       sourcePattern: 'src/main/java',
-                       exclusionPattern: ''
+                       sourcePattern: 'src/main/java'
             }
         }
 
