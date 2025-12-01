@@ -1,30 +1,46 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'jdk17'     // or whatever JDK name you configured
+        gradle 'gradle8' // optional if Jenkins manages Gradle
+    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Stage Build: Step 1: Starting Building..'
-                sh './gradlew build'
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Build & Test') {
             steps {
-                echo 'Stage Test: Step 1: Starting Testing..'
-                sh './gradlew test'
+                sh './gradlew clean test jacocoTestReport'
             }
-            post {
-                always {
-                    junit "build/reports/tests/test/*.xml"
-                    publishHTML ([
-                        reportDir: "build/reports/tests/test",
-                        reportFiles: "index.html",
-                        reportName: "Test Report",
-                        alwaysLinkToLastBuild: true,
-                        allowMissing: true,
-                        keepAll: true
-                    ])
-                }
+        }
+
+        stage('Publish Test Results') {
+            steps {
+                junit 'build/test-results/test/*.xml'
+            }
+        }
+
+        stage('Publish Coverage') {
+            steps {
+                jacoco execPattern: 'build/jacoco/test.exec',
+                       classPattern: 'build/classes/java/main',
+                       sourcePattern: 'src/main/java',
+                       exclusionPattern: ''
+            }
+        }
+
+        stage('Publish HTML Reports') {
+            steps {
+                publishHTML(target: [
+                    reportName: 'Jacoco Coverage Report',
+                    reportDir: 'build/reports/jacoco/test/html',
+                    reportFiles: 'index.html'
+                ])
             }
         }
     }
