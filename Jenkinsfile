@@ -26,11 +26,21 @@ pipeline {
             }
         }
 
-        stage('Publish HTML Reports') {
+        stage('Publish Jacoco HTML Reports') {
             steps {
                 publishHTML(target: [
                     reportName: 'Jacoco Coverage',
                     reportDir: 'build/reports/jacoco/test/html',
+                    reportFiles: 'index.html'
+                ])
+            }
+        }
+
+        stage('Publish Gradle HTML Reports') {
+            steps {
+                publishHTML(target: [
+                    reportName: 'Gradle test',
+                    reportDir: 'build/reports/tests/test',
                     reportFiles: 'index.html'
                 ])
             }
