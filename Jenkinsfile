@@ -1,7 +1,13 @@
 pipeline {
     agent any
 
+    tools {
+        jdk '17'
+        gradle '8.10'
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -20,18 +26,10 @@ pipeline {
             }
         }
 
-        stage('Publish Coverage') {
-            steps {
-                jacoco execPattern: 'build/jacoco/test.exec',
-                       classPattern: 'build/classes/java/main',
-                       sourcePattern: 'src/main/java'
-            }
-        }
-
         stage('Publish HTML Reports') {
             steps {
                 publishHTML(target: [
-                    reportName: 'Jacoco Coverage Report',
+                    reportName: 'Jacoco Coverage',
                     reportDir: 'build/reports/jacoco/test/html',
                     reportFiles: 'index.html'
                 ])
