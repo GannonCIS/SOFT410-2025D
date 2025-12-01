@@ -68,7 +68,6 @@ public class MenuController {
         actions.put(1, () -> {
             Money balance = accountController.getBalance(account, type);
             menu.showBalance(balance.toString());
-            // back.run();
         });
 
         // 2 - Withdraw
