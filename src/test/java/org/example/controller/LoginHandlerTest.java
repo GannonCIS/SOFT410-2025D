@@ -37,7 +37,6 @@ public class LoginHandlerTest {
         Account account = new Account();
         OptionMenu optionMenu = mock(OptionMenu.class);
 
-        // Always wrong PIN → will fail for all attempts
         when(optionMenu.promptCustomerNumber()).thenReturn(123);
         when(optionMenu.promptPin()).thenReturn(999);
 
@@ -47,7 +46,6 @@ public class LoginHandlerTest {
 
         assertFalse(result);
 
-        // MAX_ATTEMPTS = 3 → expect 3 tries
         verify(optionMenu, times(3)).promptCustomerNumber();
         verify(optionMenu, times(3)).promptPin();
         verify(optionMenu, never()).showLoginSuccess();

@@ -90,7 +90,6 @@ public class MenuController {
             }
         });
 
-        // 4 - Exit → back to account selection
         actions.put(4, back);
 
         return actions;
