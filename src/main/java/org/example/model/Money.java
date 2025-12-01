@@ -48,4 +48,17 @@ public final class Money {
     public String toString() {
         return "$" + value.toPlainString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Money)) return false;
+        Money other = (Money) o;
+        return this.value.compareTo(other.value) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return value.stripTrailingZeros().hashCode();
+    }
 }

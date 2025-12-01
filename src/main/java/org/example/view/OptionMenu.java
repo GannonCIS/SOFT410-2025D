@@ -40,6 +40,7 @@ public class OptionMenu {
 
     public void showLoginFailure() {
         System.out.println("\nWrong Customer Number or Wrong PIN Number\n");
+        System.exit(0);
     }
 
     public void showInvalidInputError(Exception e) {

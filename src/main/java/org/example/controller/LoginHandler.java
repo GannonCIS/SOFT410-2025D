@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class LoginHandler {
 
+    private static final int MAX_ATTEMPTS = 3;
+
     private final Map<Integer, Integer> credentials = new HashMap<>();
     private final Account account;
     private final OptionMenu view;
@@ -21,8 +23,9 @@ public class LoginHandler {
     }
 
     public boolean login() {
-        int x = 1;
-        do {
+        int attempts = 0;
+
+        while (attempts < MAX_ATTEMPTS) {
             try {
                 view.showWelcome();
                 int customerNumber = view.promptCustomerNumber();
@@ -38,9 +41,10 @@ public class LoginHandler {
                 }
             } catch (Exception e) {
                 view.showInvalidInputError(e);
-                x = 2;
             }
-        } while (x == 1);
+
+            attempts++;
+        }
 
         return false;
     }
